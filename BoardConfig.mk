@@ -30,7 +30,7 @@ TARGET_NO_BOOTLOADER := true
 PRODUCT_ENFORCE_VINTF_MANIFEST := true
 
 # Crypto
-TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/commonsys/cryptfs_hw
+TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/cryptfs_hw
 TW_INCLUDE_CRYPTO := true
 
 # Encryption
