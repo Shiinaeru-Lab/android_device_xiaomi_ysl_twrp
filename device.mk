@@ -35,3 +35,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     tzdata_twrp
 
+# Apex libraries
+PRODUCT_HOST_PACKAGES += \
+    libandroidicu
+
