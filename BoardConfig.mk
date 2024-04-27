@@ -37,7 +37,7 @@ TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 TARGET_HW_DISK_ENCRYPTION := true
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci androidboot.selinux=permissive audit=0
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci androidboot.selinux=permissive androidboot.usbconfigfs=true loop.max_part=7 audit=0
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
@@ -48,6 +48,7 @@ TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/zImage-dtb
 TARGET_BOARD_PLATFORM := msm8953
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno506
 TARGET_BOARD_SUFFIX := _64
+QCOM_BOARD_PLATFORMS += $(TARGET_BOARD_PLATFORM)
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
@@ -102,7 +103,6 @@ TW_INCLUDE_REPACKTOOLS := true
 TARGET_RECOVERY_DEVICE_MODULES += \
     libcap \
     libdrm \
-    libhardware_legacy \
     libicui18n \
     libion \
     libicuuc \
@@ -113,7 +113,6 @@ TARGET_RECOVERY_DEVICE_MODULES += \
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libcap.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libdrm.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libhardware_legacy.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libicui18n.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libicuuc.so \
