@@ -26,15 +26,18 @@ TARGET_2ND_CPU_VARIANT := cortex-a53
 TARGET_BOOTLOADER_BOARD_NAME := ysl
 TARGET_NO_BOOTLOADER := true
 
+# VINTF
+PRODUCT_ENFORCE_VINTF_MANIFEST := true
+
 # Crypto
 TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/commonsys/cryptfs_hw
 TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
 
 # Encryption
 PLATFORM_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 16.1.0
 BOARD_USES_QCOM_DECRYPTION := true
+BOARD_USES_QCOM_FBE_DECRYPTION := true
 TARGET_HW_DISK_ENCRYPTION := true
 
 # Kernel
@@ -72,37 +75,43 @@ TARGET_COPY_OUT_VENDOR := vendor
 
 # TWRP Configuration
 RECOVERY_SDCARD_ON_DATA := true
-TW_THEME := portrait_hdpi
+TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_EXCLUDE_SUPERSU := true
+TW_EXTRA_LANGUAGES := true
+TW_DEFAULT_LANGUAGE := en
+TW_INCLUDE_NTFS_3G := true
 TW_MAX_BRIGHTNESS := 4095
 TW_DEFAULT_BRIGHTNESS := 2048
-TW_NO_SCREEN_BLANK := true
-TARGET_RECOVERY_QCOM_RTC_FIX := true
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-BOARD_SUPPRESS_SECURE_ERASE := true
-TW_IGNORE_MISC_WIPE_DATA := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_USE_TOOLBOX := true
-TW_EXCLUDE_ENCRYPTED_BACKUPS := true
-TW_INCLUDE_FUSE_EXFAT := true
-TW_INCLUDE_FUSE_NTFS := true
-TW_INCLUDE_NTFS_3G := true
-TW_INCLUDE_LIBRESETPROP := true
-TW_INCLUDE_RESETPROP := true
+TW_THEME := portrait_hdpi
+TW_NEW_ION_HEAP := true
+TW_EXCLUDE_TWRPAPP := true
 TW_INCLUDE_REPACKTOOLS := true
+TW_HAS_EDL_MODE := false
 TW_USE_FSCRYPT_POLICY := 1
+
+# Debug
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+
+# Disable Mouse Cursor
+TW_INPUT_BLACKLIST := "hbtp_vm"
 
 # Additional binaries & libraries needed for recovery
 TARGET_RECOVERY_DEVICE_MODULES += \
+    libcryptfs_hw \
     libdrm \
     libion \
-	libcryptfs_hw \
+    libkeymaster3device \
     vendor.display.config@1.0 \
     vendor.display.config@2.0
 
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libdrm.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
-	$(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libcryptfs_hw.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster3device.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libcryptfs_hw.so \
     $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
     $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so \
-	$(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.qti.hardware.cryptfshw@1.0.so
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.qti.hardware.cryptfshw@1.0.so
